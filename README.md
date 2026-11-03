@@ -1,10 +1,10 @@
-# Activity 1: Containerization and Deployment of a Cloud-Native Application
+# Internal Assessment 2: Containerization and Deployment of a Cloud-Native Application
 
 **Student:** Kartik Saste  
-**Course activity:** Cloud Computing, Activity 1  
+**Course assessment:** Cloud Computing, Internal Assessment 2  
 **Stack:** Python 3.12 · Flask · Gunicorn · Docker · Kubernetes (kind) · kubectl
 
-For this activity I built a small Python Flask web app, packaged it into a custom Docker image (`kartik-flask-app:1.0`), and ran it as a Docker container. I then deployed it to a Kubernetes cluster with a **Deployment** (2 replicas) and exposed it with a **NodePort Service**. Each page shows the name of the pod that served it, so you can see the Service spreading requests across both replicas.
+For this assessment I built a small Python Flask web app, packaged it into a custom Docker image (`kartik-flask-app:1.0`), and ran it as a Docker container. I then deployed it to a Kubernetes cluster with a **Deployment** (2 replicas) and exposed it with a **NodePort Service**. Each page shows the name of the pod that served it, so you can see the Service spreading requests across both replicas.
 
 ---
 
