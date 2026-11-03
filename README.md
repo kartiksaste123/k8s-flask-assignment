@@ -274,49 +274,6 @@ The full text output of every command is in [`evidence/logs/`](evidence/logs).
 
 ---
 
-## 9. Viva / Q&A
-
-**Q1. What is the difference between a Docker image and a container?**  
-An image is a read-only, layered template containing the app and its dependencies. A container is a running instance of an image with its own process, filesystem layer, and network.
-
-**Q2. Why copy `requirements.txt` before the rest of the code?**  
-Docker caches each layer. Because dependencies are installed in a separate layer, changing `app.py` only rebuilds the last layers, which makes rebuilds much faster.
-
-**Q3. Why run as a non-root user?**  
-If someone breaks into the app, they get an unprivileged user instead of root inside the container, which limits the damage. Kubernetes enforces this as well with `runAsNonRoot: true`.
-
-**Q4. Why Gunicorn instead of `python app.py`?**  
-Flask's built-in server is for development only. Gunicorn is a production WSGI server that handles multiple workers and concurrent requests.
-
-**Q5. What does a Deployment do that a single Pod doesn't?**  
-It keeps the desired number of replicas running (self-healing), supports rolling updates and rollbacks, and supports scaling, all through a ReplicaSet.
-
-**Q6. What is the difference between liveness and readiness probes?**  
-Readiness decides whether a pod should receive traffic (it's taken out of the Service while not ready). Liveness decides whether the container is stuck and needs to be restarted.
-
-**Q7. Why do we need a Service? Why not use the pod IP?**  
-Pod IPs change every time a pod is recreated. A Service provides a stable IP/DNS name and load-balances across all healthy pods selected by label.
-
-**Q8. Explain `port`, `targetPort` and `nodePort`.**  
-`port` (80) is the Service's own port inside the cluster. `targetPort` (5000) is the container port traffic is sent to. `nodePort` (30080) is the port opened on each node for outside access (range 30000–32767).
-
-**Q9. What are the Service types?**  
-`ClusterIP` (internal only, the default), `NodePort` (a port on every node), `LoadBalancer` (a cloud load balancer, e.g. AWS ELB), and `ExternalName` (a DNS alias).
-
-**Q10. How does the page show which pod served it?**  
-The downward API injects `metadata.name` into the `POD_NAME` env variable, and Flask renders it on the page. Refreshing through the Service shows different pod names.
-
-**Q11. What are resource requests and limits?**  
-Requests are what the scheduler reserves for the pod. Limits are the maximum it may use. If the pod goes over its CPU limit it gets throttled, and if it goes over its memory limit the container is killed (OOMKilled).
-
-**Q12. Why kind, and how did the image get into the cluster without a registry?**  
-kind runs a full Kubernetes cluster inside Docker containers, so it's free and fast for local testing. `kind load docker-image` copies the image into the node's container runtime, and `imagePullPolicy: IfNotPresent` uses it.
-
-**Q13. How would you deploy this on AWS?**  
-Push the image to Amazon ECR, create an EKS cluster (or run kind/k3s on an EC2 instance), update `image:` to the ECR URL, and change the Service to `type: LoadBalancer` so AWS provisions a load balancer.
-
----
-
-## 10. Conclusion
+## 9. Conclusion
 
 The Flask application was containerized with a structured, secure Dockerfile, built into `kartik-flask-app:1.0`, and run successfully as a healthy Docker container. It was then deployed to Kubernetes with a 2-replica Deployment (probes, resource limits, downward API) and exposed through a NodePort Service. Every step is backed by logs and screenshots, and the evidence shows the application reachable through the Service, with traffic balanced across both pods, self-healing, and scaling.
