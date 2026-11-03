@@ -4,6 +4,10 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: kartik-cluster
+networking:
+  # kube-proxy in nftables mode (native nft load-balancing, no legacy
+  # iptables 'statistic' kernel module required)
+  kubeProxyMode: "nftables"
 nodes:
   - role: control-plane
     extraPortMappings:
