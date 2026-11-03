@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ info.app_name }}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+           background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+           min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #1f2937; }
+    .card { background: #ffffff; border-radius: 18px; width: min(760px, 92vw);
+            box-shadow: 0 20px 50px rgba(0,0,0,.35); overflow: hidden; }
+    .header { background: linear-gradient(90deg, #2563eb, #7c3aed); color: #fff; padding: 28px 32px; }
+    .header h1 { font-size: 28px; }
+    .header p { opacity: .9; margin-top: 6px; }
+    .badges { margin-top: 14px; }
+    .badge { display: inline-block; background: rgba(255,255,255,.2); border-radius: 999px;
+             padding: 4px 12px; font-size: 13px; margin-right: 8px; }
+    .body { padding: 26px 32px; }
+    .pod { background: #ecfdf5; border: 2px solid #10b981; border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; }
+    .pod .label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #047857; }
+    .pod .value { font-family: "DejaVu Sans Mono", monospace; font-size: 22px; font-weight: 700; color: #065f46; margin-top: 4px; word-break: break-all; }
+    table { width: 100%; border-collapse: collapse; }
+    td { padding: 10px 6px; border-bottom: 1px solid #e5e7eb; font-size: 15px; }
+    td.k { color: #6b7280; width: 40%; }
+    td.v { font-family: "DejaVu Sans Mono", monospace; color: #111827; }
+    .links { margin-top: 20px; }
+    .links a { display: inline-block; margin-right: 10px; padding: 8px 14px; border-radius: 8px;
+               background: #eef2ff; color: #4338ca; text-decoration: none; font-weight: 600; font-size: 14px; }
+    .footer { padding: 14px 32px; background: #f9fafb; color: #6b7280; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>&#x1F433; {{ info.app_name }}</h1>
+      <p>Containerized with Docker &middot; Deployed on Kubernetes</p>
+      <div class="badges">
+        <span class="badge">Version {{ info.version }}</span>
+        <span class="badge">Python {{ info.python_version }}</span>
+        <span class="badge">Env: {{ info.environment }}</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="pod">
+        <div class="label">Served by pod / container</div>
+        <div class="value">{{ info.pod_name }}</div>
+      </div>
+      <table>
+        <tr><td class="k">Hostname</td><td class="v">{{ info.hostname }}</td></tr>
+        <tr><td class="k">Pod IP</td><td class="v">{{ info.pod_ip }}</td></tr>
+        <tr><td class="k">Node</td><td class="v">{{ info.node_name }}</td></tr>
+        <tr><td class="k">Namespace</td><td class="v">{{ info.namespace }}</td></tr>
+        <tr><td class="k">Server time</td><td class="v">{{ info.server_time_utc }}</td></tr>
+        <tr><td class="k">Uptime</td><td class="v">{{ info.uptime_seconds }} s</td></tr>
+      </table>
+      <div class="links">
+        <a href="/health">/health</a>
+        <a href="/api/info">/api/info</a>
+      </div>
+    </div>
+    <div class="footer">Cloud Computing Activity 1 &mdash; Kartik Saste</div>
+  </div>
+</body>
+</html>
