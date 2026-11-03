@@ -1,0 +1,87 @@
+# Kubernetes Deployment: keeps 2 identical pods of the Flask app running,
+# restarts them if they fail and rolls out new versions without downtime.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kartik-flask-app
+  labels:
+    app: kartik-flask-app
+    tier: web
+    version: "1.0"
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: kartik-flask-app          # must match the pod template labels below
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0              # never drop below 2 ready pods during an update
+  template:
+    metadata:
+      labels:
+        app: kartik-flask-app
+        tier: web
+        version: "1.0"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+      containers:
+        - name: flask-app
+          image: kartik-flask-app:1.0
+          imagePullPolicy: IfNotPresent   # use the image loaded into the kind node
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          env:
+            - name: APP_VERSION
+              value: "1.0.0"
+            - name: APP_NAME
+              value: "Kartik Cloud-Native Flask App"
+            # Downward API: expose pod metadata to the app as env vars
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "128Mi"
+          readinessProbe:               # only send traffic once the app answers /health
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+          livenessProbe:                # restart the container if /health stops answering
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          securityContext:
+            allowPrivilegeEscalation: false
