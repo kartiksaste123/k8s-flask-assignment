@@ -1,0 +1,7 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl rollout status deployment/kartik-flask-app --timeout=120s && kubectl wait --for=condition=Ready pod -l app=kartik-flask-app --timeout=120s
+Waiting for deployment "kartik-flask-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "kartik-flask-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "kartik-flask-app" successfully rolled out
+pod/kartik-flask-app-d68d597bc-66fkd condition met
+pod/kartik-flask-app-d68d597bc-cmrms condition met
+

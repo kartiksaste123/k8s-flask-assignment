@@ -1,0 +1,9 @@
+kartik@cloud-lab:~/k8s-assignment$ P=$(kubectl get pods -l app=kartik-flask-app -o jsonpath='{.items[0].metadata.name}'); echo "Deleting pod $P ..."; kubectl delete pod $P; kubectl wait --for=condition=Ready pod -l app=kartik-flask-app --timeout=90s; kubectl get pods -l app=kartik-flask-app -o wide
+Deleting pod kartik-flask-app-d68d597bc-66fkd ...
+pod "kartik-flask-app-d68d597bc-66fkd" deleted from default namespace
+pod/kartik-flask-app-d68d597bc-cmrms condition met
+pod/kartik-flask-app-d68d597bc-qxtj6 condition met
+NAME                               READY   STATUS    RESTARTS   AGE   IP           NODE                           NOMINATED NODE   READINESS GATES
+kartik-flask-app-d68d597bc-cmrms   1/1     Running   0          17s   10.244.0.6   kartik-cluster-control-plane   <none>           <none>
+kartik-flask-app-d68d597bc-qxtj6   1/1     Running   0          6s    10.244.0.7   kartik-cluster-control-plane   <none>           <none>
+

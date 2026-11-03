@@ -1,0 +1,4 @@
+kartik@cloud-lab:~/k8s-assignment$ docker images kartik-flask-app
+REPOSITORY         TAG       IMAGE ID       CREATED                  SIZE
+kartik-flask-app   1.0       b7665ba40578   Less than a second ago   126MB
+

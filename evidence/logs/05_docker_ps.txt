@@ -1,0 +1,5 @@
+kartik@cloud-lab:~/k8s-assignment$ docker ps --filter name=kartik-flask-app && docker inspect -f 'Health: {{.State.Health.Status}}' kartik-flask-app
+CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS                    PORTS                                       NAMES
+9baf19ef882a   kartik-flask-app:1.0   "gunicorn --bind 0.0…"   32 seconds ago   Up 32 seconds (healthy)   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp   kartik-flask-app
+Health: healthy
+

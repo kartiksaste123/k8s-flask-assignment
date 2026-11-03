@@ -1,0 +1,53 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl describe deploy kartik-flask-app
+Name:                   kartik-flask-app
+Namespace:              default
+CreationTimestamp:      Tue, 03 Nov 2026 19:15:42 +0530
+Labels:                 app=kartik-flask-app
+                        tier=web
+                        version=1.0
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=kartik-flask-app
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  0 max unavailable, 1 max surge
+Pod Template:
+  Labels:  app=kartik-flask-app
+           tier=web
+           version=1.0
+  Containers:
+   flask-app:
+    Image:      kartik-flask-app:1.0
+    Port:       5000/TCP (http)
+    Host Port:  0/TCP (http)
+    Limits:
+      cpu:     250m
+      memory:  128Mi
+    Requests:
+      cpu:      100m
+      memory:   64Mi
+    Liveness:   http-get http://:http/health delay=10s timeout=2s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:http/health delay=3s timeout=2s period=5s successThreshold=1 failureThreshold=3
+    Environment:
+      APP_VERSION:    1.0.0
+      APP_NAME:       Kartik Cloud-Native Flask App
+      POD_NAME:        (v1:metadata.name)
+      POD_NAMESPACE:   (v1:metadata.namespace)
+      POD_IP:          (v1:status.podIP)
+      NODE_NAME:       (v1:spec.nodeName)
+    Mounts:           <none>
+  Volumes:            <none>
+  Node-Selectors:     <none>
+  Tolerations:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   kartik-flask-app-d68d597bc (2/2 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  11s   deployment-controller  Scaled up replica set kartik-flask-app-d68d597bc from 0 to 2
+

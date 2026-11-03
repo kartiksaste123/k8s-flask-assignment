@@ -1,0 +1,17 @@
+kartik@cloud-lab:~/k8s-assignment$ curl -s http://localhost:5000/health; curl -s http://localhost:5000/api/info | python3 -m json.tool; curl -s -o /dev/null -w 'GET / -> HTTP %{http_code}, %{size_download} bytes\n' http://localhost:5000/
+{"pod_name":"9baf19ef882a","status":"healthy","version":"1.0.0"}
+{
+    "app_name": "Kartik Cloud-Native Flask App",
+    "environment": "docker/local",
+    "hostname": "9baf19ef882a",
+    "namespace": "n/a",
+    "node_name": "n/a",
+    "pod_ip": "n/a",
+    "pod_name": "9baf19ef882a",
+    "python_version": "3.12.16",
+    "server_time_utc": "2026-11-03 13:45:04 UTC",
+    "uptime_seconds": 31,
+    "version": "1.0.0"
+}
+GET / -> HTTP 200, 3294 bytes
+

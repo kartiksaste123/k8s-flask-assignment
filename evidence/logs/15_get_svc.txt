@@ -1,0 +1,6 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl get svc kartik-flask-service -o wide && kubectl get endpointslices -l kubernetes.io/service-name=kartik-flask-service
+NAME                   TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+kartik-flask-service   NodePort   10.96.57.119   <none>        80:30080/TCP   10s   app=kartik-flask-app
+NAME                         ADDRESSTYPE   PORTS   ENDPOINTS               AGE
+kartik-flask-service-8bsp8   IPv4          5000    10.244.0.5,10.244.0.6   10s
+

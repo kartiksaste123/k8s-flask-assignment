@@ -1,0 +1,7 @@
+kartik@cloud-lab:~/k8s-assignment$ docker --version && kubectl version --client && kind version && python3 --version
+Docker version 26.1.5+dfsg1, build a72d7cd
+Client Version: v1.37.2
+Kustomize Version: v5.8.1
+kind v0.33.0 go1.26.7 linux/amd64
+Python 3.13.5
+

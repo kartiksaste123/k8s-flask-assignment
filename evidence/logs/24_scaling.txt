@@ -1,0 +1,13 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl scale deploy/kartik-flask-app --replicas=3 && kubectl rollout status deploy/kartik-flask-app --timeout=90s && kubectl get pods -l app=kartik-flask-app && kubectl scale deploy/kartik-flask-app --replicas=2 && sleep 8 && kubectl get pods -l app=kartik-flask-app
+deployment.apps/kartik-flask-app scaled
+Waiting for deployment "kartik-flask-app" rollout to finish: 2 of 3 updated replicas are available...
+deployment "kartik-flask-app" successfully rolled out
+NAME                               READY   STATUS    RESTARTS   AGE
+kartik-flask-app-d68d597bc-cmrms   1/1     Running   0          23s
+kartik-flask-app-d68d597bc-qc6k7   1/1     Running   0          6s
+kartik-flask-app-d68d597bc-qxtj6   1/1     Running   0          12s
+deployment.apps/kartik-flask-app scaled
+NAME                               READY   STATUS    RESTARTS   AGE
+kartik-flask-app-d68d597bc-cmrms   1/1     Running   0          31s
+kartik-flask-app-d68d597bc-qxtj6   1/1     Running   0          20s
+

@@ -1,0 +1,16 @@
+kartik@cloud-lab:~/k8s-assignment$ for i in $(seq 1 10); do echo "request $i -> $(curl -s http://localhost:30080/health)"; done; echo; echo 'Requests served per pod (50 requests):'; for i in $(seq 1 50); do curl -s http://localhost:30080/api/info | python3 -c 'import sys,json;print(json.load(sys.stdin)["pod_name"])'; done | sort | uniq -c
+request 1 -> {"pod_name":"kartik-flask-app-d68d597bc-cmrms","status":"healthy","version":"1.0.0"}
+request 2 -> {"pod_name":"kartik-flask-app-d68d597bc-66fkd","status":"healthy","version":"1.0.0"}
+request 3 -> {"pod_name":"kartik-flask-app-d68d597bc-cmrms","status":"healthy","version":"1.0.0"}
+request 4 -> {"pod_name":"kartik-flask-app-d68d597bc-cmrms","status":"healthy","version":"1.0.0"}
+request 5 -> {"pod_name":"kartik-flask-app-d68d597bc-66fkd","status":"healthy","version":"1.0.0"}
+request 6 -> {"pod_name":"kartik-flask-app-d68d597bc-66fkd","status":"healthy","version":"1.0.0"}
+request 7 -> {"pod_name":"kartik-flask-app-d68d597bc-66fkd","status":"healthy","version":"1.0.0"}
+request 8 -> {"pod_name":"kartik-flask-app-d68d597bc-66fkd","status":"healthy","version":"1.0.0"}
+request 9 -> {"pod_name":"kartik-flask-app-d68d597bc-66fkd","status":"healthy","version":"1.0.0"}
+request 10 -> {"pod_name":"kartik-flask-app-d68d597bc-cmrms","status":"healthy","version":"1.0.0"}
+
+Requests served per pod (50 requests):
+     24 kartik-flask-app-d68d597bc-66fkd
+     26 kartik-flask-app-d68d597bc-cmrms
+

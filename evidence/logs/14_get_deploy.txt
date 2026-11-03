@@ -1,0 +1,6 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl get deploy kartik-flask-app -o wide && kubectl get rs -l app=kartik-flask-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                 SELECTOR
+kartik-flask-app   2/2     2            2           9s    flask-app    kartik-flask-app:1.0   app=kartik-flask-app
+NAME                         DESIRED   CURRENT   READY   AGE
+kartik-flask-app-d68d597bc   2         2         2       9s
+

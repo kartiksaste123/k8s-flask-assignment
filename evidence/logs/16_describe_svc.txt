@@ -1,0 +1,20 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl describe svc kartik-flask-service
+Name:                     kartik-flask-service
+Namespace:                default
+Labels:                   app=kartik-flask-app
+Annotations:              <none>
+Selector:                 app=kartik-flask-app
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.96.57.119
+IPs:                      10.96.57.119
+Port:                     http  80/TCP
+TargetPort:               5000/TCP
+NodePort:                 http  30080/TCP
+Endpoints:                10.244.0.5:5000,10.244.0.6:5000
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+

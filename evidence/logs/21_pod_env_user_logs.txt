@@ -1,0 +1,20 @@
+kartik@cloud-lab:~/k8s-assignment$ P=$(kubectl get pods -l app=kartik-flask-app -o jsonpath='{.items[0].metadata.name}'); echo "# env inside $P"; kubectl exec $P -- env | grep -E 'APP_|POD_|NODE_' | sort; echo; echo '# user inside container'; kubectl exec $P -- id; echo; echo '# logs (note kube-probe health checks)'; kubectl logs $P --tail=6
+# env inside kartik-flask-app-d68d597bc-66fkd
+APP_NAME=Kartik Cloud-Native Flask App
+APP_VERSION=1.0.0
+NODE_NAME=kartik-cluster-control-plane
+POD_IP=10.244.0.5
+POD_NAME=kartik-flask-app-d68d597bc-66fkd
+POD_NAMESPACE=default
+
+# user inside container
+uid=10001(appuser) gid=10001(appgroup) groups=10001(appgroup)
+
+# logs (note kube-probe health checks)
+10.244.0.1 - - [03/Nov/2026:13:45:52 +0000] "GET /api/info HTTP/1.1" 200 359 "-" "curl/8.14.1"
+10.244.0.1 - - [03/Nov/2026:13:45:52 +0000] "GET /api/info HTTP/1.1" 200 359 "-" "curl/8.14.1"
+10.244.0.1 - - [03/Nov/2026:13:45:52 +0000] "GET /api/info HTTP/1.1" 200 359 "-" "curl/8.14.1"
+10.244.0.1 - - [03/Nov/2026:13:45:52 +0000] "GET /api/info HTTP/1.1" 200 359 "-" "curl/8.14.1"
+10.244.0.1 - - [03/Nov/2026:13:45:53 +0000] "GET /api/info HTTP/1.1" 200 359 "-" "curl/8.14.1"
+10.244.0.1 - - [03/Nov/2026:13:45:53 +0000] "GET /health HTTP/1.1" 200 85 "-" "kube-probe/1.37"
+

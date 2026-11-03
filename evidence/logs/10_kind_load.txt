@@ -1,0 +1,3 @@
+kartik@cloud-lab:~/k8s-assignment$ kind load docker-image kartik-flask-app:1.0 --name kartik-cluster
+Image: "kartik-flask-app:1.0" with ID "sha256:b7665ba40578bc908e10bccc873119821c94773f0e01c66ccdd03820c78723c4" not yet present on node "kartik-cluster-control-plane", loading...
+

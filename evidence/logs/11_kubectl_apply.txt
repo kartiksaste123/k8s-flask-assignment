@@ -1,0 +1,4 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml
+deployment.apps/kartik-flask-app created
+service/kartik-flask-service created
+

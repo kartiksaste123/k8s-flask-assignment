@@ -1,0 +1,23 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl port-forward svc/kartik-flask-service 8080:80 &
+Forwarding from 127.0.0.1:8080 -> 5000
+Forwarding from [::1]:8080 -> 5000
+
+kartik@cloud-lab:~/k8s-assignment$ curl -s http://localhost:8080/health
+{"pod_name":"kartik-flask-app-d68d597bc-cmrms","status":"healthy","version":"1.0.0"}
+kartik@cloud-lab:~/k8s-assignment$ curl -s http://localhost:8080/api/info | python3 -m json.tool
+{
+    "app_name": "Kartik Cloud-Native Flask App",
+    "environment": "kubernetes",
+    "hostname": "kartik-flask-app-d68d597bc-cmrms",
+    "namespace": "default",
+    "node_name": "kartik-cluster-control-plane",
+    "pod_ip": "10.244.0.6",
+    "pod_name": "kartik-flask-app-d68d597bc-cmrms",
+    "python_version": "3.12.16",
+    "server_time_utc": "2026-11-03 13:46:17 UTC",
+    "uptime_seconds": 32,
+    "version": "1.0.0"
+}
+kartik@cloud-lab:~/k8s-assignment$ curl -s -o /dev/null -w "GET / -> HTTP %{http_code}\n" http://localhost:8080/
+GET / -> HTTP 200
+

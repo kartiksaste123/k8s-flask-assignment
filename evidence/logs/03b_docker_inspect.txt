@@ -1,0 +1,10 @@
+kartik@cloud-lab:~/k8s-assignment$ docker inspect kartik-flask-app:1.0 --format '{{json .Config.Labels}}' | python3 -m json.tool && docker inspect kartik-flask-app:1.0 --format 'User={{.Config.User}}  ExposedPorts={{json .Config.ExposedPorts}}  Healthcheck={{json .Config.Healthcheck.Test}}'
+{
+    "org.opencontainers.image.authors": "Kartik Saste",
+    "org.opencontainers.image.description": "Basic Python Flask app containerized with Docker and deployed on Kubernetes",
+    "org.opencontainers.image.licenses": "MIT",
+    "org.opencontainers.image.title": "kartik-flask-app",
+    "org.opencontainers.image.version": "1.0"
+}
+User=appuser  ExposedPorts={"5000/tcp":{}}  Healthcheck=["CMD-SHELL","python -c \"import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=4).status == 200 else 1)\""]
+

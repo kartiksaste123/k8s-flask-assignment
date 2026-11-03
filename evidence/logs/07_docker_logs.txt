@@ -1,0 +1,11 @@
+kartik@cloud-lab:~/k8s-assignment$ docker logs kartik-flask-app
+[2026-11-03 13:44:32 +0000] [1] [INFO] Starting gunicorn 23.0.0
+[2026-11-03 13:44:32 +0000] [1] [INFO] Listening at: http://0.0.0.0:5000 (1)
+[2026-11-03 13:44:32 +0000] [1] [INFO] Using worker: sync
+[2026-11-03 13:44:32 +0000] [7] [INFO] Booting worker with pid: 7
+[2026-11-03 13:44:32 +0000] [8] [INFO] Booting worker with pid: 8
+127.0.0.1 - - [03/Nov/2026:13:45:01 +0000] "GET /health HTTP/1.1" 200 65 "-" "Python-urllib/3.12"
+172.17.0.1 - - [03/Nov/2026:13:45:04 +0000] "GET /health HTTP/1.1" 200 65 "-" "curl/8.14.1"
+172.17.0.1 - - [03/Nov/2026:13:45:04 +0000] "GET /api/info HTTP/1.1" 200 286 "-" "curl/8.14.1"
+172.17.0.1 - - [03/Nov/2026:13:45:04 +0000] "GET / HTTP/1.1" 200 3294 "-" "curl/8.14.1"
+

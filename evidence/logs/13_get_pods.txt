@@ -1,0 +1,5 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl get pods -l app=kartik-flask-app -o wide --show-labels
+NAME                               READY   STATUS    RESTARTS   AGE   IP           NODE                           NOMINATED NODE   READINESS GATES   LABELS
+kartik-flask-app-d68d597bc-66fkd   1/1     Running   0          9s    10.244.0.5   kartik-cluster-control-plane   <none>           <none>            app=kartik-flask-app,pod-template-hash=d68d597bc,tier=web,version=1.0
+kartik-flask-app-d68d597bc-cmrms   1/1     Running   0          9s    10.244.0.6   kartik-cluster-control-plane   <none>           <none>            app=kartik-flask-app,pod-template-hash=d68d597bc,tier=web,version=1.0
+

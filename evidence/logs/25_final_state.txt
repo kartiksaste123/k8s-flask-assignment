@@ -1,0 +1,18 @@
+kartik@cloud-lab:~/k8s-assignment$ kubectl get all -l app=kartik-flask-app -o wide && echo && docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'
+NAME                                   READY   STATUS    RESTARTS   AGE   IP           NODE                           NOMINATED NODE   READINESS GATES
+pod/kartik-flask-app-d68d597bc-cmrms   1/1     Running   0          35s   10.244.0.6   kartik-cluster-control-plane   <none>           <none>
+pod/kartik-flask-app-d68d597bc-qxtj6   1/1     Running   0          24s   10.244.0.7   kartik-cluster-control-plane   <none>           <none>
+
+NAME                           TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+service/kartik-flask-service   NodePort   10.96.57.119   <none>        80:30080/TCP   35s   app=kartik-flask-app
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                 SELECTOR
+deployment.apps/kartik-flask-app   2/2     2            2           35s   flask-app    kartik-flask-app:1.0   app=kartik-flask-app
+
+NAME                                         DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                 SELECTOR
+replicaset.apps/kartik-flask-app-d68d597bc   2         2         2       35s   flask-app    kartik-flask-app:1.0   app=kartik-flask-app,pod-template-hash=d68d597bc
+
+NAMES                          IMAGE                  STATUS                        PORTS
+kartik-cluster-control-plane   kindest/node:v1.37.0   Up About a minute             0.0.0.0:30080->30080/tcp, 127.0.0.1:43539->6443/tcp
+kartik-flask-app               kartik-flask-app:1.0   Up About a minute (healthy)   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp
+
