@@ -19,10 +19,12 @@ LABEL org.opencontainers.image.title="kartik-flask-app" \
 # PYTHONDONTWRITEBYTECODE: don't write .pyc files into the image
 # PYTHONUNBUFFERED:        send logs straight to stdout (visible in docker/kubectl logs)
 # PIP_NO_CACHE_DIR:        keep the image small
+# PIP_ROOT_USER_ACTION:    pip runs as root only at build time (app runs as appuser)
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_ROOT_USER_ACTION=ignore \
     APP_VERSION=1.0.0 \
     PORT=5000
 
@@ -37,8 +39,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # ---- 5. Non-root user -------------------------------------------------------
 # Running as root inside a container is a security risk, so create a
 # dedicated unprivileged user.
-RUN groupadd --system --gid 10001 appgroup \
- && useradd --system --uid 10001 --gid appgroup --no-create-home appuser
+RUN groupadd --gid 10001 appgroup \
+ && useradd --uid 10001 --gid appgroup --no-create-home --shell /usr/sbin/nologin appuser
 
 # ---- 6. Application code ----------------------------------------------------
 COPY --chown=appuser:appgroup app.py .
